@@ -5,16 +5,16 @@ import 'pages/item_pages.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'pages/transaksi.dart';
 import 'pages/dashboard.dart';
-//import 'pages/dashboard_page.dart';
 
 
-/// Flutter code sample for [NavigationBar].
+
+
 
 void main() {
   if (Platform.isAndroid || Platform.isIOS) {
-    // Mobile: pakai sqflite default
+    
   } else {
-    // Desktop: pakai sqflite_common_ffi
+    
     sqfliteFfiInit();
     databaseFactory = databaseFactoryFfi;
   }
@@ -43,7 +43,7 @@ class _NavigationExampleState extends State<NavigationExample> {
 
   @override
   Widget build(BuildContext context) {
-    //final ThemeData theme = Theme.of(context);
+    
     return Scaffold(
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
