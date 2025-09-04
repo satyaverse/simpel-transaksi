@@ -18,7 +18,7 @@ class RiwayatPage extends StatefulWidget {
 class _RiwayatPageState extends State<RiwayatPage> {
   final DBItem dbItem = DBItem();
   List<TransactionHistory> history = [];
-  List<TransactionHistory> allHistory = []; // simpan semua transaksi
+  List<TransactionHistory> allHistory = []; 
   String searchQuery = "";
 
   @override
@@ -31,23 +31,20 @@ class _RiwayatPageState extends State<RiwayatPage> {
     final list = await dbItem.getHistoryList();
     setState(() {
       allHistory = list;
-      history = allHistory.take(100).toList(); // default tampilkan 100 terakhir
+      history = allHistory.take(100).toList(); 
     });
   }
 
-//  Future<void> _deleteHistory(int id) async {
-//    await dbItem.deleteHistory(id);
-//    _loadHistory();
-//  }
+
 
   void _search(String query) {
     setState(() {
       searchQuery = query;
       if (query.isEmpty) {
-        // jika kosong, tampilkan 100 terakhir
+        
         history = allHistory.take(1000).toList();
       } else {
-        // tampilkan hasil search (tanpa batasan 100)
+        
         history = allHistory.where((h) {
           final text = "${h.date} ${h.items} ${h.total}".toLowerCase();
           return text.contains(query.toLowerCase());
@@ -56,7 +53,7 @@ class _RiwayatPageState extends State<RiwayatPage> {
     });
   }
 
-  /// Helper untuk merapikan tampilan item
+  
   Widget _buildItemList(String items) {
     final lines = items.split("\n");
     return Table(
@@ -134,7 +131,7 @@ class _RiwayatPageState extends State<RiwayatPage> {
     await Printing.layoutPdf(onLayout: (format) => pdf.save());
   }
 
-  /// Cetak struk ukuran POS 58mm / 80mm
+  
   Future<void> _printStrukPOS(TransactionHistory h, {bool is80mm = false}) async {
     final pdf = pw.Document();
 
@@ -299,34 +296,9 @@ class _RiwayatPageState extends State<RiwayatPage> {
                       ],
                     ),
                     onTap: () => _showDetailDialog(h),
-                    //trailing: IconButton(
-                      //icon: const Icon(Icons.delete, color: Colors.red),
-                      //onPressed: () async {
-                        //final confirm = await showDialog<bool>(
-                          //context: context,
-                          //builder: (context) => AlertDialog(
-                            //title: const Text("Konfirmasi Hapus"),
-                            //content: const Text("Yakin hapus transaksi ini?"),
-                           // actions: [
-                             // TextButton(
-                              //  child: const Text("Batal"),
-                              //  onPressed: () =>
-                              //      Navigator.pop(context, false),
-                            //  ),
-                             // ElevatedButton(
-                              //  child: const Text("Hapus"),
-                              //  onPressed: () =>
-                                //    Navigator.pop(context, true),
-                              //),
-                            //],
+                    
                           ),
-                        //);
-                        //if (confirm == true) {
-                        //  _deleteHistory(h.id!);
-                        //}
-                      //},
-                    //),
-                  //),
+                        
                 );
               },
             ),
