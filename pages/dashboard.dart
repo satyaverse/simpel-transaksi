@@ -558,31 +558,7 @@ Widget _buildDailyChart() {
           ),
         ],
       ),
-      //floatingActionButton: FloatingActionButton(
-        //onPressed: () {
-          //setState(() {
-            //_isLoading = true;
-          //});
-          //loadData().then((_) {
-            //setState(() {
-              //_isLoading = false;
-            //});
-          //});
-        //},
-        //child: const Icon(Icons.refresh),
-      //),
-      //floatingActionButton: FloatingActionButton.extended(
-        //onPressed: () {
-          //Navigator.push(
-            //context,
-            //MaterialPageRoute(builder: (context) => Help()),
-          //);
-        //},
-        //icon: const Icon(Icons.help),
-        //label: const Text("Bantuan"), 
-        
-      //),
-      //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      
     );
   }
 }
