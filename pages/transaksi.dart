@@ -65,7 +65,7 @@ class _TransactionPageState extends State<TransactionPage> {
   Future<void> _simpan() async {
   final selected = items.where((p) => p.isChecked).toList();
 
-  // Validasi kalau belum pilih item
+ 
   if (selected.isEmpty) {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
@@ -74,7 +74,7 @@ class _TransactionPageState extends State<TransactionPage> {
     return;
   }
 
-  // Cek stok
+  
   for (var p in selected) {
     if (p.qty > p.stok) {
       if (!mounted) return;
@@ -82,8 +82,7 @@ class _TransactionPageState extends State<TransactionPage> {
         context: context,
         builder: (ctx) => AlertDialog(
           title: const Text("Stok Tidak Cukup !"),
-          //content: Text(
-            //"Stok ${p.nama} hanya ${p.stok}, tapi dipesan ${p.qty}."),
+          
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
@@ -96,17 +95,17 @@ class _TransactionPageState extends State<TransactionPage> {
     }
   }
 
-  // Format tanggal
+  
   final now = DateTime.now().toString().substring(0, 19);
 
-  // Gabungkan list item jadi string
+  
   final itemListString = selected
       .map((p) => "${p.nama} (${p.qty}) : Rp ${_fmt(p.subtotal)}")
       .join("\n");
 
   if (!mounted) return;
 
-  // Tampilkan dialog konfirmasi
+  
   final result = await showDialog<bool>(
     context: context,
     builder: (ctx) => AlertDialog(
@@ -139,15 +138,15 @@ class _TransactionPageState extends State<TransactionPage> {
     ),
   );
 
-  // Cek hasil dialog
+  
   if (result == true && mounted) {
-    // User menekan Proses → kurangi stok & simpan riwayat
+    
     for (var p in selected) {
       final newStok = p.stok - p.qty;
       await dbItem.updateItem(p.copyWith(stok: newStok));
     }
 
-    // Simpan ke riwayat sekali saja
+    
     final history = TransactionHistory(
       date: now,
       total: itemsTotal,
@@ -156,17 +155,17 @@ class _TransactionPageState extends State<TransactionPage> {
     await dbItem.insertHistory(history);
 
     if (!mounted) return;
-    // Refresh list dari database (stok baru)
+    
     await _loadItems();
 
-    // Reset checkbox & qty
+    
     setState(_resetItems);
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Transaksi diproses')),
     );
   } else if (result == false && mounted) {
-    // Batal → tidak ubah stok
+    
     _loadItems();
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Transaksi dibatalkan')),
