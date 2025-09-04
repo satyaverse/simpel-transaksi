@@ -4,7 +4,6 @@ import '../db/db_item.dart';
 import '../models/item_model.dart';
 import '../models/riwayat_model.dart';
 
-// Halaman transaksi dengan fitur pencarian sederhana (TextField di AppBar)
 class TransactionPage extends StatefulWidget {
   const TransactionPage({super.key});
 
